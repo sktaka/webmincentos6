@@ -1,6 +1,7 @@
 # centos6
 
 Created by ASYRAFAZHAN
+thank to asyraf.. (",)
 
 autoscript
 ==========
