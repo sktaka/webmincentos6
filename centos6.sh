@@ -35,7 +35,7 @@ rpm -Uvh epel-release-6-8.noarch.rpm
 rpm -Uvh remi-release-6.rpm
 
 if [ "$OS" == "x86_64" ]; then
-  wget http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+  wget https://raw.github.com/sktaka/webmincentos6/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
   rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 else
   wget http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
@@ -88,13 +88,13 @@ echo "screenfetch" >> .bash_profile
 
 # install webserver
 cd
-wget -O /etc/nginx/nginx.conf "https://raw.github.com/asyrafazhan/centos6/master/nginx.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.github.com/sktaka/webmincentos6/master/nginx.conf"
 sed -i 's/www-data/nginx/g' /etc/nginx/nginx.conf
 mkdir -p /home/vps/public_html
 echo "<pre>cuma index biasa</pre>" > /home/vps/public_html/index.html
 echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
 rm /etc/nginx/conf.d/*
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.github.com/asyrafazhan/centos6/master/vps.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.github.com/sktaka/webmincentos6/master/vps.conf"
 sed -i 's/apache/nginx/g' /etc/php-fpm.d/www.conf
 chmod -R +rx /home/vps
 service php-fpm restart
@@ -123,7 +123,7 @@ export EASY_RSA="${EASY_RSA:-.}"
 . /etc/openvpn/easy-rsa/2.0/build-dh
 
 
-wget -O /etc/openvpn/1194.conf "https://github.com/asyrafazhan/centos6/raw/master/1194-centos.conf"
+wget -O /etc/openvpn/1194.conf "https://github.com/sktaka/webmincentos6/raw/master/1194-centos.conf"
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
@@ -146,7 +146,7 @@ service openvpn restart
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/1194-client.ovpn "https://github.com/asyrafazhan/centos6/raw/master/1194-client.conf"
+wget -O /etc/openvpn/1194-client.ovpn "https://github.com/sktaka/webmincentos6/raw/master/1194-client.conf"
 sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
 echo "<ca>" >> /etc/openvpn/1194-client.ovpn
 cat /etc/openvpn/easy-rsa/2.0/keys/ca.crt >> /etc/openvpn/1194-client.ovpn
@@ -169,8 +169,8 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 
 # install mrtg
 cd /etc/snmp/
-wget -O /etc/snmp/snmpd.conf "https://raw.github.com/asyrafazhan/centos6/master/snmpd.conf"
-wget -O /root/mrtg-mem.sh "https://raw.github.com/asyrafazhan/centos6/master/mrtg-mem.sh"
+wget -O /etc/snmp/snmpd.conf "https://raw.github.com/sktaka/webmincentos6/master/snmpd.conf"
+wget -O /root/mrtg-mem.sh "https://raw.github.com/sktaka/webmincentos6/master/mrtg-mem.sh"
 chmod +x /root/mrtg-mem.sh
 service snmpd restart
 chkconfig snmpd on
@@ -222,7 +222,7 @@ chkconfig fail2ban on
 
 # install squid
 yum -y install squid
-wget -O /etc/squid/squid.conf "https://raw.github.com/asyrafazhan/centos6/master/squid-centos.conf"
+wget -O /etc/squid/squid.conf "https://raw.github.com/sktaka/webmincentos6/master/squid-centos.conf"
 sed -i $MYIP2 /etc/squid/squid.conf;
 service squid restart
 chkconfig squid on
@@ -238,7 +238,7 @@ chkconfig webmin on
 # downlaod script
 cd
 wget -O speedtest_cli.py "https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py"
-wget -O bench-network.sh "https://raw.github.com/asyrafazhan/centos6/bench-network.sh"
+wget -O bench-network.sh "https://raw.github.com/sktaka/webmincentos6/bench-network.sh"
 wget -O ps_mem.py "https://raw.github.com/pixelb/ps_mem/master/ps_mem.py"
 #curl http://internetku.net/files/ceklogin.sh > ceklogin.sh
 wghet https://github.com/ardi85/autoscript/raw/master/ceklogin.sh
