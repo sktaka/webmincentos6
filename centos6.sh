@@ -54,6 +54,7 @@ rm -f *.rpm
 yum -y remove sendmail;
 yum -y remove httpd;
 yum -y remove cyrus-sasl;
+yum -y remove samba
 
 # update
 yum -y update
@@ -96,7 +97,7 @@ cd
 wget -O /etc/nginx/nginx.conf "https://raw.github.com/sktaka/webmincentos6/master/nginx.conf"
 sed -i 's/www-data/nginx/g' /etc/nginx/nginx.conf
 mkdir -p /home/vps/public_html
-echo "<pre>cuma index biasa</pre>" > /home/vps/public_html/index.html
+echo "<pre>Setup by Shirokagetaka </pre>" > /home/vps/public_html/index.html
 echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
 rm /etc/nginx/conf.d/*
 wget -O /etc/nginx/conf.d/vps.conf "https://raw.github.com/sktaka/webmincentos6/master/vps.conf"
@@ -183,7 +184,7 @@ chkconfig snmpd on
 snmpwalk -v 1 -c public localhost | tail
 mkdir -p /home/vps/public_html/mrtg
 cfgmaker --zero-speed 100000000 --global 'WorkDir: /home/vps/public_html/mrtg' --output /etc/mrtg/mrtg.cfg public@localhost
-curl "https://raw.github.com/asyrafazhan/centos6/master/mrtg.conf" >> /etc/mrtg/mrtg.cfg
+curl "https://raw.github.com/sktaka/webmincentos6/master/mrtg.conf" >> /etc/mrtg/mrtg.cfg
 sed -i 's/WorkDir: \/var\/www\/mrtg/# WorkDir: \/var\/www\/mrtg/g' /etc/mrtg/mrtg.cfg
 sed -i 's/# Options\[_\]: growright, bits/Options\[_\]: growright/g' /etc/mrtg/mrtg.cfg
 indexmaker --output=/home/vps/public_html/mrtg/index.html /etc/mrtg/mrtg.cfg
@@ -246,10 +247,9 @@ cd
 wget -O speedtest_cli.py "https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py"
 wget -O bench-network.sh "https://raw.github.com/sktaka/webmincentos6/bench-network.sh"
 wget -O ps_mem.py "https://raw.github.com/pixelb/ps_mem/master/ps_mem.py"
-#curl http://internetku.net/files/ceklogin.sh > ceklogin.sh
-wghet https://github.com/ardi85/autoscript/raw/master/ceklogin.sh
-wget -O userlogin.sh "https://raw.github.com/yurisshOS/centos6/master/userlogin.sh"
-wget -O userexpired.sh "https://raw.github.com/yurisshOS/centos6/master/userexpired.sh"
+wget -O "https://github.com/sktaka/webmincentos/master/ceklogin.sh"
+wget -O userlogin.sh "https://raw.github.com/sktaka/webmincentos/master/userlogin.sh"
+wget -O userexpired.sh "https://raw.github.com/sktaka/webmincentos/master/userexpired.sh"
 chmod +x speedtest_cli.py
 chmod +x ps_mem.py
 sed -i 's/auth.log/secure/g' ceklogin.sh
