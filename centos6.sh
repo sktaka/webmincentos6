@@ -16,6 +16,10 @@ cd
 # set time GMT +8
 ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 
+# disable se linux
+echo 0 > /selinux/enforce
+sed -i 's/SELINUX=enforcing/SELINUX=disable/g'  /etc/sysconfig/selinux
+
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 service sshd restart
@@ -29,8 +33,8 @@ sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.d/rc.loca
 yum -y install wget curl
 
 # setting repo
-wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+wget https://raw.github.com/sktaka/webmincentos6/master/epel-release-6-8.noarch.rpm
+wget https://raw.github.com/sktaka/webmincentos6/master/remi-release-6.rpm
 rpm -Uvh epel-release-6-8.noarch.rpm
 rpm -Uvh remi-release-6.rpm
 
@@ -38,7 +42,7 @@ if [ "$OS" == "x86_64" ]; then
   wget https://raw.github.com/sktaka/webmincentos6/master/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
   rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 else
-  wget http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+  wget https://raw.github.com/sktaka/webmincentos6/master/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
   rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.i686.rpm
 fi
 
@@ -66,15 +70,16 @@ yum -y install iftop htop nmap bc nethogs openvpn vnstat ngrep mtr git zsh mrtg 
 yum -y groupinstall 'Development Tools'
 yum -y install cmake
 
+yum -y --enablerepo=rpmforge install axel sslh ptunnel unrar
+
 # matiin exim
 service exim stop
 chkconfig exim off
 
 # setting vnstat
-vnstat -u -i $ether
+vnstat -u -i eth0
 echo "MAILTO=root" > /etc/cron.d/vnstat
 echo "*/5 * * * * root /usr/sbin/vnstat.cron" >> /etc/cron.d/vnstat
-sed -i "s/eth0/$ether/" /etc/sysconfig/vnstat
 service vnstat restart
 chkconfig vnstat on
 
@@ -151,6 +156,7 @@ sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
 echo "<ca>" >> /etc/openvpn/1194-client.ovpn
 cat /etc/openvpn/easy-rsa/2.0/keys/ca.crt >> /etc/openvpn/1194-client.ovpn
 echo -e "</ca>\n" >> /etc/openvpn/1194-client.ovpn
+useradd -M -s /bin/false sktaka
 echo "username" >> pass.txt
 echo "password" >> pass.txt
 tar cf client.tar 1194-client.ovpn pass.txt
@@ -227,11 +233,11 @@ sed -i $MYIP2 /etc/squid/squid.conf;
 service squid restart
 chkconfig squid on
 
-# install webmin
+# install webmin - webmin terbaru
 cd
-wget http://prdownloads.sourceforge.net/webadmin/webmin-1.660-1.noarch.rpm
-rpm -i webmin-1.660-1.noarch.rpm;
-rm webmin-1.660-1.noarch.rpm
+wget http://prdownloads.sourceforge.net/webadmin/webmin-1.801-1.noarch.rpm
+rpm -i webmin-1.801-1.noarch.rpm
+rm webmin-1.801-1.noarch.rpm
 service webmin restart
 chkconfig webmin on
 
