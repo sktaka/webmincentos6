@@ -247,9 +247,9 @@ cd
 wget -O speedtest_cli.py "https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py"
 wget -O bench-network.sh "https://raw.github.com/sktaka/webmincentos6/bench-network.sh"
 wget -O ps_mem.py "https://raw.github.com/pixelb/ps_mem/master/ps_mem.py"
-wget -O "https://github.com/sktaka/webmincentos/master/ceklogin.sh"
-wget -O userlogin.sh "https://raw.github.com/sktaka/webmincentos/master/userlogin.sh"
-wget -O userexpired.sh "https://raw.github.com/sktaka/webmincentos/master/userexpired.sh"
+wget -O "https://raw.github.com/sktaka/webmincentos6/master/ceklogin.sh"
+wget -O userlogin.sh "https://raw.github.com/sktaka/webmincentos6/master/userlogin.sh"
+wget -O userexpired.sh "https://raw.github.com/sktaka/webmincentos6/master/userexpired.sh"
 chmod +x speedtest_cli.py
 chmod +x ps_mem.py
 sed -i 's/auth.log/secure/g' ceklogin.sh
